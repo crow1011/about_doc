@@ -1,0 +1,6 @@
+venv
+.yaml
+.idea
+__pychache__
+*.pyc
+*.yaml
