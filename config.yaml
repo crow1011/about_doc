@@ -1,0 +1,14 @@
+query_interval: 30
+
+users_url: "https://json.medrating.org/users"
+
+todos_url: "https://json.medrating.org/todos"
+
+title_max_len: 50
+
+file_dir: "tasks/"
+
+logger:
+  log_level: 'debug' #debug, info, warning, error
+  log_file: 'watcher.log'
+  log_dir: 'logs/'

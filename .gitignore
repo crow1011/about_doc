@@ -3,4 +3,8 @@ venv
 .idea
 __pychache__
 *.pyc
-*.yaml
+*.yaml\
+.ipynb_checkpoints
+*.ipynb
+tasks
+logs
