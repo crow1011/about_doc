@@ -28,9 +28,9 @@ __cli__
 ```bash
 apt install virtualenv
 cd watcher/
-venv -p /usr/bin/python3 venv
+virtualenv -p /usr/bin/python3 venv
 source venv/bin/activate
-pip install requirements.txt
+pip install -r requirements.txt
 python watcher.py
 ```
 
@@ -44,6 +44,26 @@ docker-compose up -d --build
 docker-compose down -v --rmi all
 ```
  
+__systemd-service__
+
+```bash
+apt install virtualenv
+cd watcher/
+virtualenv -p /usr/bin/python3 venv
+source venv/bin/activate
+pip install -r requirements.txt
+cd ../systemd_gen
+python systemd_gen.py
+sudo cp watcher.service /etc/systemd/system/
+cd ../
+sudo useradd watcher
+sudo passwd watcher
+sudo chown -R watcher:watcher ./
+sudo systemctl daemon-reload
+sudo systemctl start watcher
+sudo systemctl status watcher
+sudo systemctl enable watcher
+```
 
 # ToDo:
  

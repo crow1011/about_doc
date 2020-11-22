@@ -1,0 +1,9 @@
+[Unit]
+Description=Watcher
+After=network.target
+
+[Service]
+ExecStart={{py_path}} {{watcher_path}}
+
+[Install]
+WantedBy=multi-user.target

@@ -8,3 +8,4 @@ __pychache__
 tasks
 logs
 .pytest_cache
+*.service
