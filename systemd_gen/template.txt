@@ -3,7 +3,10 @@ Description=Watcher
 After=network.target
 
 [Service]
+User={{user}}
+Group={{group}}
 ExecStart={{py_path}} {{watcher_path}}
+WorkingDirectory={{workdir_path}}
 
 [Install]
 WantedBy=multi-user.target

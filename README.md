@@ -47,11 +47,12 @@ docker-compose down -v --rmi all
 __systemd-service__
 
 ```bash
-apt install virtualenv
+sudo apt install virtualenv
 cd watcher/
 virtualenv -p /usr/bin/python3 venv
 source venv/bin/activate
 pip install -r requirements.txt
+pip install jinja2
 cd ../systemd_gen
 python systemd_gen.py
 sudo cp watcher.service /etc/systemd/system/

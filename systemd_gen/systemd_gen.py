@@ -4,10 +4,14 @@ from jinja2 import Environment, FileSystemLoader
 
 # py_path нужен, чтобы systemd запускал скрипт из виртуального окружения
 # watcher_path нужен, чтобы systemd знал, что запускать
+# workdir_path нужен, чтобы не нарушать логику обращения к файлам по относительному пути
 
 vals = {
     'py_path': sys.executable,
-    'watcher_path': os.path.abspath('../watcher/watcher.py')
+    'watcher_path': os.path.abspath('../watcher/watcher.py'),
+    'workdir_path': os.path.abspath('../watcher'),
+    'user': 'watcher',
+    'group':'watcher',
 }
 
 
