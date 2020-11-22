@@ -20,8 +20,32 @@ __Скрипт проверяет api и генерирует отчеты в т
 
 ** При перемещении конфига внесите изменения в __watcher.py__>__get_conf(conf_path='conf/conf.yaml')__  и __test_conf.py__>__ConfTest__>__SetUp__
 
+# Запуск
+Перед запуском проверьте корректонось заполнения watcher/conf/conf.yaml
 
-**ToDo:**
+__cli__
+
+```bash
+apt install virtualenv
+cd watcher/
+venv -p /usr/bin/python3 venv
+source venv/bin/activate
+pip install requirements.txt
+python watcher.py
+```
+
+
+__docker-compose__
+
+```bash
+#up
+docker-compose up -d --build
+#down and remove
+docker-compose down -v --rmi all
+```
+ 
+
+# ToDo:
  
 - [x] API для получения списка задач и api для получения списка юзеров __get_data__
 - [x] После запуска скрипта, рядом должна появиться директория "tasks" с текстовыми файлами __save_report__
