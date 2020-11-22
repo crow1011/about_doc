@@ -7,29 +7,29 @@ import sys
 class ColorPrint:
 
     @staticmethod
-    def print_fail(message, end = '\n'):
+    def print_fail(message, end='\n'):
         sys.stderr.write('\x1b[1;31m' + message.strip() + '\x1b[0m' + end)
 
     @staticmethod
-    def print_pass(message, end = '\n'):
+    def print_pass(message, end='\n'):
         sys.stdout.write('\x1b[1;32m' + message.strip() + '\x1b[0m' + end)
 
     @staticmethod
-    def print_warn(message, end = '\n'):
+    def print_warn(message, end='\n'):
         sys.stderr.write('\x1b[1;33m' + message.strip() + '\x1b[0m' + end)
 
     @staticmethod
-    def print_info(message, end = '\n'):
+    def print_info(message, end='\n'):
         sys.stdout.write('\x1b[1;34m' + message.strip() + '\x1b[0m' + end)
 
     @staticmethod
-    def print_bold(message, end = '\n'):
+    def print_bold(message, end='\n'):
         sys.stdout.write('\x1b[1;37m' + message.strip() + '\x1b[0m' + end)
 
 
 class ConfTest(unittest.TestCase, ColorPrint):
     def setUp(self):
-        with open('config.yaml') as f:
+        with open('conf/conf.yaml') as f:
             self.conf = yaml.load(f, Loader=yaml.FullLoader)
 
     def test_conf(self):
@@ -39,9 +39,9 @@ class ConfTest(unittest.TestCase, ColorPrint):
         self.print_bold('---------------------------')
 
     def test_query_interval(self):
-        self.print_info('Checking query_interval type is int, is not empty and is bigger than 0')
+        self.print_info('Checking query_interval type is int, is not empty and is bigger than 59')
         self.assertEqual(type(self.conf['query_interval']), int)
-        self.assertEqual(self.conf['query_interval'] > 0, True)
+        self.assertEqual(self.conf['query_interval'] > 59, True)
         self.print_pass('Done')
 
     def test_users_url(self):

@@ -1,4 +1,4 @@
-query_interval: 30
+query_interval: 60
 
 users_url: "https://json.medrating.org/users"
 

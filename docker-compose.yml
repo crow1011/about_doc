@@ -1,0 +1,14 @@
+version: '2.2'
+services:
+  app:
+    container_name: watcher
+    build:
+      context: watcher
+      dockerfile: Dockerfile
+    command: bash deploy.sh
+    env_file:
+      - watcher-variables.env
+    volumes:
+      - ./watcher/conf:/app/conf
+      - ./watcher/logs:/app/logs
+      - ./watcher/tasks:/app/tasks

@@ -8,7 +8,7 @@ from datetime import datetime
 
 
 # забирает и парсит конфиг
-def get_conf(conf_path='config.yaml'):
+def get_conf(conf_path='conf/conf.yaml'):
     with open(conf_path) as f:
         conf = yaml.load(f, Loader=yaml.FullLoader)
     return conf
@@ -80,17 +80,17 @@ def gen_report(user, df_todos):
     # запрашивает все таски конкретного пользователя из общего сприска тасков
     user_todo = df_todos[df_todos['userId'] == user['id']]
     # из списка тасков конкретного юзера составляет тектовые списки с завершенными и незавершенными
-    # здесь логичее было использовать метод pd.to_list(), но у него баг с justify, невозможно сменить на left
+    # здесь логичее было использовать метод .to_list(), но у него баг с justify, невозможно сменить на left
     todo_completed = user_todo[user_todo['completed'] == True]['title'].to_list()
     todo_completed = '\n\n'.join(todo_completed)
     todo_uncompleted = user_todo[user_todo['completed'] == False]['title'].to_list()
     todo_uncompleted = '\n\n'.join(todo_uncompleted)
     # формирует дату у время, которые будут установлены рядом с email
     now = datetime.now().strftime("%d.%m.%Y %H:%M")
-    # собирает по строчкам репорт
+    # собирает по строкам репорт
     report = '\n'
     report += user['name'] + ' <' + user['email'] + '> ' + now + '\n'
-    report += user['username'] + '\n' * 3
+    report += user['company']['name'] + '\n' * 3
     report += 'Завершённые задачи:' + '\n\n'
     report += todo_completed
     report += '\n' * 3
@@ -147,4 +147,9 @@ if __name__ == '__main__':
     conf = get_conf()
     logger = get_logger(conf['logger'])
     logger.debug('DEBUG MODE')
-    main(conf)
+    while True:
+        try:
+            main(conf)
+        except:
+            logger.exception('Exception: ')
+        time.sleep(conf['query_interval'])
