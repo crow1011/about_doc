@@ -82,19 +82,19 @@ def gen_report(user, df_todos):
     # из списка тасков конкретного юзера составляет тектовые списки с завершенными и незавершенными
     # здесь логичее было использовать метод .to_list(), но у него баг с justify, невозможно сменить на left
     todo_completed = user_todo[user_todo['completed'] == True]['title'].to_list()
-    todo_completed = '\n\n'.join(todo_completed)
+    todo_completed = '\n'.join(todo_completed)
     todo_uncompleted = user_todo[user_todo['completed'] == False]['title'].to_list()
-    todo_uncompleted = '\n\n'.join(todo_uncompleted)
+    todo_uncompleted = '\n'.join(todo_uncompleted)
     # формирует дату у время, которые будут установлены рядом с email
     now = datetime.now().strftime("%d.%m.%Y %H:%M")
     # собирает по строкам репорт
-    report = '\n'
+    report = ''
     report += user['name'] + ' <' + user['email'] + '> ' + now + '\n'
-    report += user['company']['name'] + '\n' * 3
-    report += 'Завершённые задачи:' + '\n\n'
+    report += user['company']['name'] + '\n\n'
+    report += 'Завершённые задачи:' + '\n'
     report += todo_completed
-    report += '\n' * 3
-    report += 'Оставшиеся задачи:' + '\n\n'
+    report += '\n\n'
+    report += 'Оставшиеся задачи:' + '\n'
     report += todo_uncompleted
     return report
 
@@ -136,9 +136,13 @@ def main(conf):
     logger.debug(f'Todos columns: {df_todos.columns}')
     results = []
     for row_id, user in df_users.iterrows():
-        report = gen_report(user, df_todos)
-        result = save_report(user, report, conf['file_dir'])
-        results.append(result)
+        # при проблемном юзере ошибка по нему будет запсиана в лог и скрипт пойдет по остальным
+        try:
+            report = gen_report(user, df_todos)
+            result = save_report(user, report, conf['file_dir'])
+            results.append(result)
+        except:
+            logger.exception('Exception: ')
 
     logger.info('Created: ' + ', '.join(results))
 
@@ -148,6 +152,7 @@ if __name__ == '__main__':
     logger = get_logger(conf['logger'])
     logger.debug('DEBUG MODE')
     while True:
+        # общая проверка, в случае непредвиденной ошибки она будет записана в лог
         try:
             main(conf)
         except:

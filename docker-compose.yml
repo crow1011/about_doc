@@ -1,6 +1,6 @@
 version: '2.2'
 services:
-  app:
+  watcher:
     container_name: watcher
     build:
       context: watcher
