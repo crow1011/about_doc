@@ -78,9 +78,9 @@ def create_df(users_data, todos_data, title_max_len):
 
 
 def gen_report(user, df_todos):
-    # запрашивает все таски конкретного пользователя из общего сприска тасков
+    # запрашивает все таски конкретного пользователя из общего списка тасков
     user_todo = df_todos[df_todos['userId'] == user['id']]
-    # из списка тасков конкретного юзера составляет тектовые списки с завершенными и незавершенными
+    # из списка тасков конкретного юзера составляет текcтовые списки с завершенными и незавершенными
     # здесь логичее было использовать метод .to_list(), но у него баг с justify, невозможно сменить на left
     todo_completed = user_todo[user_todo['completed'] == True]['title'].to_list()
     todo_completed = '\n'.join(todo_completed)
@@ -137,7 +137,7 @@ def main(conf):
     logger.debug(f'Todos columns: {df_todos.columns}')
     results = []
     for row_id, user in df_users.iterrows():
-        # при проблемном юзере ошибка по нему будет запсиана в лог и скрипт пойдет по остальным
+        # при проблемном юзере ошибка по нему будет запсиана в лог и цикл пойдет по остальным
         try:
             report = gen_report(user, df_todos)
             result = save_report(user, report, conf['file_dir'])

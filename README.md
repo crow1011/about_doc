@@ -11,22 +11,22 @@ __Скрипт проверяет api и генерирует отчеты в т
 
 - title_max_len - задает макимальную длину названия таска
 
-- file_dir - задает папку для сохранения отчетов(при ииспользовании docker-compose изменить и в путь для volume)
+- file_dir - задает папку для сохранения отчетов(при использовании docker-compose изменить и в путь для volume)
 
 - logger:
   -  log_level - задает уровень логирования, допустимые значения: debug, info, warning, error
   -  log_file - задает название файла с логами
-  -  log_dir - задает папку для сохранения логов(при ииспользовании docker-compose изменить и в путь для volume)
+  -  log_dir - задает папку для сохранения логов(при использовании docker-compose изменить и в путь для volume)
 
 ** При перемещении конфига внесите изменения в __watcher.py__>__get_conf(conf_path='conf/conf.yaml')__  и __test_conf.py__>__ConfTest__>__SetUp__
 
 # Запуск
-Перед запуском проверьте корректонось заполнения watcher/conf/conf.yaml
+Перед запуском проверьте корректность заполнения watcher/conf/conf.yaml
 
 __cli__
 
 ```bash
-apt install virtualenv
+sudo apt install virtualenv
 cd watcher/
 virtualenv -p /usr/bin/python3 venv
 source venv/bin/activate
