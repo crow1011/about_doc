@@ -28,3 +28,6 @@ with open('watcher.service', 'w') as f:
 
 print('python path is ' + vals['py_path'])
 print('watcher.py path is ' + vals['watcher_path'])
+print('workdir path is ' + vals['workdir_path'])
+print('user is ' + vals['user'])
+print('group is ' + vals['group'])
