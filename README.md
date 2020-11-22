@@ -59,7 +59,7 @@ sudo cp watcher.service /etc/systemd/system/
 cd ../
 sudo useradd watcher
 sudo passwd watcher
-sudo chown -R watcher:watcher ./
+sudo chown -R watcher:watcher ./watcher
 sudo systemctl daemon-reload
 sudo systemctl start watcher
 sudo systemctl status watcher
